@@ -30,4 +30,12 @@ class SnakeGameTest {
         SnakeGame g=new SnakeGame(Scenario.NORMAL);g.tick(Direction.RIGHT);g.reset();
         assertEquals(Scenario.NORMAL.snake,g.body());assertEquals(Scenario.NORMAL.food,g.food());assertEquals(SnakeGame.Status.RUNNING,g.status());
     }
+    @Test void loopMoveIntoTailIsLegal() {
+        SnakeGame g=new SnakeGame(Scenario.LOOP);g.tick(Direction.LEFT);
+        assertEquals(new Cell(1,2),g.head());assertEquals(4,g.body().size());assertEquals(SnakeGame.Status.RUNNING,g.status());
+    }
+    @Test void loopReverseStillBlocked() {
+        SnakeGame g=new SnakeGame(Scenario.LOOP);g.tick(Direction.DOWN);
+        assertEquals(new Cell(2,1),g.head());assertEquals(Direction.UP,g.direction());assertEquals(SnakeGame.Status.RUNNING,g.status());
+    }
 }
